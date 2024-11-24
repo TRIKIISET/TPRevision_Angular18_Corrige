@@ -47,8 +47,8 @@
         "model": "Fiesta",
         "immatriculation": "185TU6547"
       },
-      "photo": "images/fiesta.jpg",
       "power": 120,
+      "photo": "images/fiesta.jpg",
       "circulationDate": "2022-02-15",
       "isAutomatic": false,
       "accessoryList": [
@@ -59,6 +59,10 @@
         {
           "property": "Bluetooth",
           "value": "Oui"
+        },
+        {
+          "property": "Airbag",
+          "value": "Non"
         }
       ]
     },

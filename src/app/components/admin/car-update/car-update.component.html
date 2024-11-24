@@ -1,0 +1,49 @@
+<h5>Modification des informations de la voiture</h5>
+<form [formGroup]="carForm" (ngSubmit)="onUpdateCar()">
+    <label for="">Id Voiture</label>
+    <input type="text" readonly class="form-control" formControlName="id">
+    <div formGroupName="infos">
+        <label>Marque:</label>
+        <select formControlName="brand" class="form-control">
+            @for(b of brands; track $index){
+                <option [value]="b">{{b}}</option>
+            }
+        </select>
+        <label>Modèle:</label>
+        <input type="text" class="form-control" formControlName="model">
+        <label>Immatriculation:</label>
+        <input type="text" class="form-control" formControlName="immatriculation">
+    </div>
+    <label>Puissance:</label>
+    <input type="number" class="form-control" formControlName="power">
+    <label>Photo:</label>
+    <input type="text" class="form-control" formControlName="photo">
+
+    <label>Date de mise en ciculation:</label>
+    <input type="date" class="form-control" formControlName="circulationDate">
+    <label>Mode Automatique</label>
+    <input type="checkbox" formControlName="isAutomatic" />
+
+    <div>
+        Liste des accesoires
+        <div formArrayName="accessoryList">
+            @for(acc of accessoryList.controls; track $index; let i =$index){
+                <div>
+                    <div [formGroupName]="i">
+                        Propriété: <input type="text" formControlName="property">     
+                        Valeur: <input type="text" formControlName="value"> 
+                        <input type="button" (click)="onDeleteAccessory(i)" class="btn btn-secondary" value="-">   
+                    </div>                        
+                </div>
+            }
+           
+            <input type="button" (click)="onAddAccessory()" class="btn btn-dark" value="+"> 
+        </div>
+    </div>
+    <div>
+        <input type="submit" value="Confirmer" [disabled]="carForm.invalid" class="btn btn-warning">
+    </div>
+</form>
+
+
+

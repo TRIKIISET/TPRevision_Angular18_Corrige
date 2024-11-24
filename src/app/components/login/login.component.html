@@ -1,0 +1,35 @@
+<img src="images/logo.png" alt="">
+<div class="bordure">
+    <strong>Authentification</strong>
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <div class="mb-3 mt-3">
+            <label class="form-label">Nom d'utilisateur:</label>
+            <input type="text" class="form-control"
+                placeholder="Introduisez votre nom d'utilisateur (manager ou admin)" formControlName="username">
+        </div>
+        @if(Username?.invalid && Username?.dirty){
+            <div  class="alert alert-danger">
+                Le nom d'utilisateur est un champ obligatoire
+            </div>
+        }
+
+        <div class="mb-3">
+            <label class="form-label">Password:</label>
+            <input type="password" class="form-control"
+                placeholder="Introduisez votre mot de passe (pwdManager ou pwdAdmin)" formControlName="pwd">
+        </div>
+        @if(Pwd?.invalid && Pwd?.dirty){
+            <div class="alert alert-danger">
+                Le mot de passe est un champ obligatoire
+            </div>
+        }
+        <button class="btn btn-dark" [disabled]="loginForm.invalid">
+            <i class="fa-solid fa-unlock"></i>
+            S'authentifier</button>
+
+        <div style="color: red;">
+            {{message}}
+        </div>
+    </form>
+
+</div>

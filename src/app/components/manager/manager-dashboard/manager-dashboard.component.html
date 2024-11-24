@@ -1,0 +1,48 @@
+<div class="container">
+    <app-manager-menu></app-manager-menu>
+    <div class="mt-2">
+      <table class="table">
+        <thead class="table-dark">
+          <tr>
+            <th>Photo</th>
+            <th>Marque</th>
+            <th>Modèle</th>
+            <th>Immatriculation</th>
+            <th>Date de circulation</th>
+            <th>Puissance</th>
+            <th>Automatique</th>
+            <th>Accessoires</th>
+          </tr>
+        </thead>
+        <tbody>
+            @for( car of carsList$ |async; track car.id){
+                <tr>
+                    <td><img [src]="car.photo" [alt]="car.photo"></td>
+                    <td>{{car.infos.brand |uppercase}}</td>
+                    <td>{{car.infos.model}}</td>
+                    <td>{{car.infos.immatriculation |immatriculation}}</td>
+                    <td>{{car.circulationDate}}</td>
+                    <td>{{car.power}}</td>
+                    <td><input type="checkbox" [checked]="car.isAutomatic"></td>
+                    <td>
+                      <ul>
+                        @for( a of car.accessoryList; track $index){
+                            <li>
+                                {{a.property}} :
+                                <span [ngClass]="{
+                                  'badge':true,
+                                  'bg-warning': a.value=='Oui',
+                                  'bg-secondary': a.value=='Non',
+                                  'bg-dark': a.value!= 'Oui'&& a.value!='Non'
+                                }">
+                                  {{a.value}}
+                                </span>
+                              </li>
+                        }                       
+                      </ul>
+                    </td>
+                  </tr>
+            }         
+        </tbody>
+      </table>
+    </div>

@@ -1,0 +1,22 @@
+<div class="container">
+    <h2>Liste des voitures</h2>
+    <form>
+        <input type="text" class="form-control" #rech placeholder="Donnez la marque">
+        <input type="button" value="Rechercher" (click)="onSearch(rech.value)" class="btn btn-warning">
+    </form>
+    <br>
+    <div>
+              <ul class="list-group">
+                @for(car of cars; track car.id; let i=$index){
+                    <li class="list-group-item">
+                        <app-car-item [car]="car"  [position]="i" (notify)="onDeleteCar($event)"></app-car-item>          
+                    </li>
+                }
+              </ul>
+    </div>
+</div>
+
+
+
+
+

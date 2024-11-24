@@ -1,0 +1,68 @@
+<div class="container">
+    <h2> Ajout d'une voiture</h2>
+    <form [formGroup]="carForm" (ngSubmit)="onAddCar()">
+        <div formGroupName="infos">
+            <label>Marque:</label>
+            <select formControlName="brand" class="form-control">
+                @for(b of brands; track $index){
+                    <option [value]="b">{{b}}</option>
+                }
+            </select>
+            <label>Modèle:</label>
+            <input type="text" class="form-control" formControlName="model">
+            @if(Model?.invalid && Model?.touched){
+                <div class="alert alert-warning">
+                    Le modèle n'est pas valide
+                </div>
+            }
+            <label>Immatriculation:</label>
+            <input type="text" class="form-control" formControlName="immatriculation">
+            @if(isRequiredImm()){
+                <div class="alert alert-warning">
+                    L'immatriculation est un champ obligatoire
+                </div>
+            }
+            @if(isValidPatternImm()){
+                <div class="alert alert-warning">
+                    Le format de l'immatriculation n'est pas correct
+                </div>
+            }
+        </div>
+        <label>Puissance:</label>
+        <input type="number" class="form-control" formControlName="power">
+        <label>Photo:</label>
+        <input type="text" class="form-control" formControlName="photo">
+
+        <label>Date de mise en ciculation:</label>
+        <input type="date" class="form-control" formControlName="circulationDate">
+        <label>Mode Automatique</label>
+        <input type="checkbox" formControlName="isAutomatic">
+
+        <div>
+            Liste des accesoires
+            <div formArrayName="accessoryList">
+                @for(d of accessoryList.controls; track $index; let i=$index){
+                    <div>
+                        <div [formGroupName]="i">
+                            Propriété: <input type="text" formControlName="property">
+                            Valeur: <input type="text" formControlName="value">
+                            <input type="button" (click)="onDeleteAccessory(i)" class="btn btn-light" value="-">
+                        </div>
+                    </div>
+                }
+
+                <input type="button" (click)="onAddAccessory()" class="btn btn-dark" value="+">
+            </div>
+        </div>
+        <div>
+            <button type="submit" [disabled]="carForm.invalid" class="btn btn-warning">
+                <i class="fa-solid fa-square-plus"></i>
+                Ajouter
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="onClear()">
+                <i class="fa-solid fa-trash"></i>
+                Effacer
+            </button>
+        </div>
+    </form>
+</div>

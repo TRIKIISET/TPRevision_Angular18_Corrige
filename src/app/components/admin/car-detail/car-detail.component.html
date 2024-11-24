@@ -1,0 +1,57 @@
+<div class="container pt-6">
+    <div class="row">
+        <div class="col-5">
+            @if(car){
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <img [src]="car.photo" alt="">
+                        <br>
+                        <strong>
+                            {{car.infos.brand }} -
+                            {{car.infos.model}} -
+                            {{car.infos.immatriculation|immatriculation }}
+                        </strong>
+                    </li>
+    
+                    <li class="list-group-item"><strong>Mise en circulation</strong>:
+                        {{car.circulationDate| date:"dd/ MM /yyyy"}}</li>
+                    <li class="list-group-item"> <strong> Puissance : </strong>
+                        {{car.power}}
+                    </li>
+                    <li class="list-group-item"> <strong> Automatique : </strong>
+                        <input type="checkbox" disabled [checked]="car.isAutomatic">
+                    </li>
+    
+                    <li class="list-group-item">
+                        <strong>Liste des accessoires:</strong>
+                        <ul>
+                            @for(accessory of car.accessoryList; track $index){
+                                <li>
+                                    {{accessory.property }} : {{accessory.value}}
+                                </li>
+                            }
+                        </ul>    
+                    </li>
+    
+                    <li class="list-group-item">
+                        <button type="button" class="btn btn-warning" (click)="display = !display">
+                            <i class="fa-sharp fa-solid fa-pen"></i>
+                             Modifier</button>
+                        <button type="button" class="btn btn-secondary" routerLink="/admin/cars" >
+                            <i class="fa-solid fa-rotate-left"></i>
+                            Retour
+                        </button>
+                    </li>
+                </ul>
+            }
+
+        </div>
+        @if(display){
+            <div class="col-7">
+                <app-car-update [car]= "car" (updateDone)="onUpdateCar($event)"
+                ></app-car-update>
+            </div>
+        }
+
+    </div>
+</div>
